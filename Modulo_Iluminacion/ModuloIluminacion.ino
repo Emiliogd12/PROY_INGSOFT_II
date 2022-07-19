@@ -1,26 +1,37 @@
-// Pines y variables a utilizar
-int pinsensor = 0;
-int value = 0;
-char led = 13;
+int ledPin = 13; // Se declara el pin para el led
 
+int ldrPin = 0; // LDR en el pin analogico 0
+
+int ldrValue = 0; // Se inicializa el valor del LDR en 0
+
+ 
 
 void setup() {
-  // Establece la velocidad de datos en bits por segundo para comunicarse con la computadora
+
   Serial.begin(9600);
+  pinMode(ledPin,OUTPUT);
+
 }
 
-//Lectura del nivel de iluminación
 void loop() {
-  value = analogRead(pinsensor);
-  Serial.println(value, DEC);
+
+  ldrValue = analogRead(ldrPin); //se da el valor a la variable según la lectura del LDR en el pin analógico 0
+
+  Serial.println(ldrValue); //Se imprime el valor en monitor
+
+  //Condicion para encender o apagar el led según la lectura del LDR
+  if (ldrValue >= 100){   
+
+    digitalWrite(ledPin,HIGH);
+
+  }
+
+  else {
+
+    digitalWrite(ledPin,LOW);
+
+  }
+
   delay(500);
 
-
-  //Si la luz detectada es mayor a 0 encender el led
-  if (value > 0) {
-    digitalWrite(led, HIGH);
-  }
-  else {
-    digitalWrite(led, LOW);
-  }
 }
